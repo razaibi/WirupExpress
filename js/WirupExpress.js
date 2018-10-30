@@ -1,7 +1,7 @@
 "use strict";
 var wirup = function() {};
 wirup.prototype = function() {
-    var _getElement = function(element_id) {
+    var _getElement = (element_id)=> {
             return document.getElementById(element_id);
         },
         _dataStore = {},
@@ -16,7 +16,7 @@ wirup.prototype = function() {
             return new Promise(function(resolve, reject) {
                 var _viewHTML = '';
                 document.querySelectorAll('[datasource]').forEach((_component)=>{
-                    _viewHTML = _buildComponent(_component.tagName.toLowerCase(), _component.getAttribute('datasource'))
+                    _viewHTML = _buildComponent(_component.tagName.toLowerCase(), _component.getAttribute('datasource'));
                     _component.innerHTML = _viewHTML;
                 });
                 resolve();
@@ -60,9 +60,9 @@ wirup.prototype = function() {
             });
             return output.join("");
         },
-        _watchDataModel = function() {
+        _watchDataModel = ()=> {
             var _dataSnapShotList = {}
-            setInterval(function() {
+            setInterval(()=> {
                 for (var key in _dataStore) {
                     var stringified = JSON.stringify(window['wuObject']['dataStore'][key]);
                     if (typeof _dataSnapShotList[key] == 'undefined') {
@@ -82,14 +82,14 @@ wirup.prototype = function() {
                 _key_list.push(obj[k]);
             }
         },
-        _jsonize = function(objectName) {
+        _jsonize = (objectName)=> {
             try {
                 return JSON.parse(window[objectName]);
             } catch (e) {
                 return window[objectName];
             }
         },
-        _loadScript = function(scriptPath) {
+        _loadScript = (scriptPath)=> {
             return new Promise((resolve, reject)=>{   
                 var _newScript = document.createElement('script');
                 _newScript.type = 'text/javascript';
